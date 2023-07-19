@@ -1,13 +1,20 @@
 import '../App.css';
 import Header from "../component/Header"
-import React,{useEffect, useReducer} from 'react';
+import React,{useEffect, useReducer, useState} from 'react';
 import NoteList from '../component/NoteList';
 import NotesReducer from '../reducers/NoteReducer'
 import AddEditForm from  '../component/AddEditForm'
+import Pagination from '../component/Pagination';
 
 const  AppRouter=()=> {
   
   const [notes,dispatch]=useReducer(NotesReducer,[]);
+  const [currentPage,setCurrentPage]=useState(1);
+  const [notesPerPage,setNotesPerPage]=useState(4);
+
+  const lastPostIndex=currentPage*notesPerPage;
+  const firstPostIndex=lastPostIndex-notesPerPage;
+  const currentNotes= notes.slice(firstPostIndex,lastPostIndex);
    
   useEffect(()=>{
 
@@ -49,7 +56,9 @@ const  AppRouter=()=> {
 
     <AddEditForm dispatch={dispatch}/> 
     
-    <NoteList  notes={notes} removeNote={removeNote} removeAll={removeAll} />
+    <NoteList  currentNotes={currentNotes} removeNote={removeNote} removeAll={removeAll} />
+
+    <Pagination totalNotes={notes.length} notesPerPage={notesPerPage} setCurrentPage={setCurrentPage} currentPage={currentPage}/>
           
     </div>
   );

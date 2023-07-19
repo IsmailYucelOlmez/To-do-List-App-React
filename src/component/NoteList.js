@@ -2,15 +2,15 @@ import React from 'react'
 import Note from './Note'
 
 
-const NoteList = ({notes,removeNote,removeAll}) => {
+const NoteList = ({currentNotes,removeNote,removeAll}) => {
   return (
     <div className='notelist-field'>
     <div className='note-list'>
-    { notes&&(
+    { currentNotes&&(
 
-      notes.map((note)=>(
+      currentNotes.map((note,index)=>(
 
-          <Note key={note.id} note={note} removeNote={removeNote} />
+          <Note key={index} note={note} removeNote={removeNote} />
       ))
       )
     }
