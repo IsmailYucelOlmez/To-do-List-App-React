@@ -2,24 +2,73 @@ import React from 'react'
 import Note from './Note'
 
 
-const NoteList = ({currentNotes,removeNote,removeAll}) => {
+const NoteList = ({ currentNotes, dispatch}) => {
+
   return (
-    <div className='notelist-field'>
-    <div className='note-list'>
-    { currentNotes&&(
+    <>
+      {currentNotes.map((note, index) => (
+        <Note key={index} note={note} dispatch={dispatch} />
+      ))}
+    </>
+  );
+};
 
-      currentNotes.map((note,index)=>(
-
-          <Note key={index} note={note} removeNote={removeNote} />
-      ))
-      )
-    }
-    </div>
-    <div className='remove-notes-field'>
-          <button className='remove-all-btn btn' onClick={removeAll} >Remove All</button>
-    </div>
-    </div>
-  )
-}
 
 export default NoteList
+
+
+
+
+
+
+
+
+
+
+
+
+
+// const NoteList = ({currentNotes,removeNote,dispatch,filterState,setFilterState}) => {
+
+ 
+
+//   if (filterState === 'all') {
+//     return(
+//     currentNotes.map((note, index) => (
+      
+//       <Note
+//         key={index} note={note} removeNote={removeNote}  dispatch={dispatch}
+//       />
+      
+//     ))
+//     )
+
+//   } else if (filterState === 'completed') {
+//     return(
+//     currentNotes.map((note, index) => {
+//       if (note.statu === 'completed')
+        
+//           <Note
+//           key={index} note={note} removeNote={removeNote}  dispatch={dispatch}
+//           />
+//     })
+//     )
+   
+//   } else {
+//    return(
+//     currentNotes.map((note, index) => {
+//       if (note.statu === 'uncompleted')
+       
+//           <Note
+//             key={index} note={note} removeNote={removeNote}  dispatch={dispatch}
+//           />
+        
+//     })
+//    )
+//   }
+
+    
+ 
+// }
+
+// export default NoteList

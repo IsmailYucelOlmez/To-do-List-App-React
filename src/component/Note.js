@@ -1,27 +1,48 @@
 import React from 'react'
 
-const Note = ({note,removeNote}) => {
+const Note = ({note,dispatch}) => {
+
+  const editStatu=(id,statu)=>{
+    dispatch({
+
+      type:"EDIT_STATU",
+      id,
+      statu
+
+    })
+    
+  }
 
   const changeState=(e)=>{
 
-    if(e.target.checked ){
-
-      document.getElementById(note.id).classList.add("done");
+    if(note.statu==="uncompleted"){
+      
+      editStatu(note.id,"completed");
      
     }else{
+       
+      editStatu(note.id,"uncompleted")
       
-      document.getElementById(note.id).classList.remove("done");
-
-    }
-    
+    }    
   }
+
+  const removeNote=(id)=>{
+    dispatch({
+
+      type:"REMOVE_NOTE",
+      id
+
+    })
+
+  }
+
 
   return (
     <div className='note-section'>
 
       <div className='flex'>
-        <input onClick={(e)=>changeState(e)}  className='checkbox' type='checkbox' ></input>
-        <p id={note.id} className="note-text">{note.text}</p>
+        <input  className="checkbox" type='checkbox' checked={note.statu==="completed"} onChange={(e)=>changeState(e)} ></input>
+        <p  className={`note-text ${note.statu==="completed" ? "done":""} `} >{note.text}</p>
       </div>
 
       <button onClick={()=>removeNote(note.id)} className='remove-btn btn'><i className='fa-solid fa-x'></i></button>

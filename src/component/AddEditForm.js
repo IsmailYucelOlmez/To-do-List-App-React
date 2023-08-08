@@ -5,6 +5,8 @@ const AddEditForm = ({dispatch}) => {
 
   const [id,setId]=useState(0);
   const [text,setText]=useState("");
+  const [statu,setStatu]=useState("uncompleted");
+  
     
   const addNote=()=>{
             
@@ -12,7 +14,8 @@ const AddEditForm = ({dispatch}) => {
       dispatch({
         type:"ADD_NOTE",
         id,
-        text
+        text,
+        statu
     })
       setId(id+1);
       setText("");    

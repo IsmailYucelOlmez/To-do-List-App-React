@@ -5,48 +5,55 @@ import NoteList from '../component/NoteList';
 import NotesReducer from '../reducers/NoteReducer'
 import AddEditForm from  '../component/AddEditForm'
 import Pagination from '../component/Pagination';
+import FilterField from '../component/FilterField';
 
 const  AppRouter=()=> {
   
   const [notes,dispatch]=useReducer(NotesReducer,[]);
+
   const [currentPage,setCurrentPage]=useState(1);
   const [notesPerPage,setNotesPerPage]=useState(4);
+  
+  const [filterState,setFilterState]=useState("all");
+
+  const filteredNotes = notes.filter((note) => {
+    if (filterState === 'all') {
+      
+      return true;
+    } 
+
+    if (filterState === 'completed') {
+      
+      return note.statu === 'completed';     
+    }else {
+      
+      return note.statu === 'uncompleted';
+    }
+  });
 
   const lastPostIndex=currentPage*notesPerPage;
   const firstPostIndex=lastPostIndex-notesPerPage;
-  const currentNotes= notes.slice(firstPostIndex,lastPostIndex);
+  const currentNotes= filteredNotes.slice(firstPostIndex,lastPostIndex);
    
-  useEffect(()=>{
+   useEffect(()=>{
+
+    showNotes();
+    
+   },[])
+
+   useEffect(()=>{
+
+     localStorage.setItem('notes',JSON.stringify(notes));
+
+   },[notes]);
+
+   const showNotes=()=>{
 
     const noteData=JSON.parse(localStorage.getItem('notes'));
     
     dispatch({type:"SHOW_NOTES",notes:noteData})
-    
-  },[])
 
-  useEffect(()=>{
-
-    localStorage.setItem('notes',JSON.stringify(notes));
-
-  },[notes]);
-
-  const removeNote=(id)=>{
-    dispatch({
-
-      type:"REMOVE_NOTE",
-      id
-
-    })
-
-  }
-
-  const removeAll=()=>{
-
-    dispatch({
-      type:"REMOVE_ALL"
-    });
-
-  }
+   }
  
   return (
 
@@ -54,11 +61,13 @@ const  AppRouter=()=> {
 
     <Header />
 
-    <AddEditForm dispatch={dispatch}/> 
-    
-    <NoteList  currentNotes={currentNotes} removeNote={removeNote} removeAll={removeAll} />
+    <AddEditForm dispatch={dispatch} /> 
 
-    <Pagination totalNotes={notes.length} notesPerPage={notesPerPage} setCurrentPage={setCurrentPage} currentPage={currentPage}/>
+    <FilterField setFilterState={setFilterState} dispatch={dispatch} />
+    
+    <NoteList  currentNotes={currentNotes} dispatch={dispatch} />
+
+    <Pagination totalNotes={filteredNotes.length} notesPerPage={notesPerPage} setCurrentPage={setCurrentPage} currentPage={currentPage}/>
           
     </div>
   );
