@@ -27,6 +27,20 @@ const NotesReducer=(state,action)=>{
                     return note
                 }
             })    
+
+        case "EDIT_NOTE":
+            return state.map((note)=>{
+
+                if(note.id===action.id){
+                    return{
+                        ...note,
+                        text: action.text
+                    }
+                }else{
+                    return note
+                }
+            })  
+
         default:
             return state
     }

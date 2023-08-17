@@ -2,12 +2,12 @@ import React from 'react'
 import Note from './Note'
 
 
-const NoteList = ({ currentNotes, dispatch}) => {
+const NoteList = ({ currentNotes, dispatch,setEditId,setText,setIsEdit}) => {
 
   return (
     <>
       {currentNotes.map((note, index) => (
-        <Note key={index} note={note} dispatch={dispatch} />
+        <Note key={index} note={note} dispatch={dispatch} setEditId={setEditId} setText={setText} setIsEdit={setIsEdit}/>
       ))}
     </>
   );

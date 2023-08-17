@@ -13,6 +13,10 @@ const  AppRouter=()=> {
 
   const [currentPage,setCurrentPage]=useState(1);
   const [notesPerPage,setNotesPerPage]=useState(4);
+
+  const [isEdit,setIsEdit]=useState(false);
+  const [text,setText]=useState("");
+  const [editId,setEditId]=useState();
   
   const [filterState,setFilterState]=useState("all");
 
@@ -61,11 +65,11 @@ const  AppRouter=()=> {
 
     <Header />
 
-    <AddEditForm dispatch={dispatch} /> 
+    <AddEditForm dispatch={dispatch} text={text} setText={setText} isEdit={isEdit} setIsEdit={setIsEdit} editId={editId} /> 
 
     <FilterField setFilterState={setFilterState} dispatch={dispatch} />
     
-    <NoteList  currentNotes={currentNotes} dispatch={dispatch} />
+    <NoteList  currentNotes={currentNotes} dispatch={dispatch} setEditId={setEditId} setText={setText} setIsEdit={setIsEdit}/>
 
     <Pagination totalNotes={filteredNotes.length} notesPerPage={notesPerPage} setCurrentPage={setCurrentPage} currentPage={currentPage}/>
           
