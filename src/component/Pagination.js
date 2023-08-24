@@ -1,6 +1,13 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { NoteContext } from '../context/NoteContext';
 
-const Pagination = ({totalNotes,notesPerPage,setCurrentPage,currentPage}) => {
+const Pagination = () => {
+
+  const {filteredNotes}=useContext(NoteContext);
+  const totalNotes=filteredNotes.length;
+  const {notesPerPage}=useContext(NoteContext);
+  const {setCurrentPage}=useContext(NoteContext);
+  const {currentPage}=useContext(NoteContext);
 
   let pages= [];
 

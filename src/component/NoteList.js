@@ -1,13 +1,16 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import Note from './Note'
+import { NoteContext } from '../context/NoteContext';
 
 
-const NoteList = ({ currentNotes, dispatch,setEditId,setText,setIsEdit}) => {
+const NoteList = () => {
 
+  const {currentNotes}=useContext(NoteContext);
+  
   return (
     <>
       {currentNotes.map((note, index) => (
-        <Note key={index} note={note} dispatch={dispatch} setEditId={setEditId} setText={setText} setIsEdit={setIsEdit}/>
+        <Note key={index} note={note} />
       ))}
     </>
   );

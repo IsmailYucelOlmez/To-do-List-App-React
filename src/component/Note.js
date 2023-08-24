@@ -1,6 +1,12 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { NoteContext } from '../context/NoteContext'
 
-const Note = ({note,dispatch,setEditId,setText,setIsEdit}) => {
+const Note = ({note}) => {
+
+  const {dispatch}=useContext(NoteContext);
+  const {setEditId}=useContext(NoteContext);
+  const {setText}=useContext(NoteContext);
+  const {setIsEdit}=useContext(NoteContext);
 
   const editStatu=(id,statu)=>{
     dispatch({
@@ -44,6 +50,8 @@ const Note = ({note,dispatch,setEditId,setText,setIsEdit}) => {
     document.querySelector(".add-btn").textContent="Edit";
 
   }
+
+  console.log(note);
 
 
   return (

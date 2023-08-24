@@ -1,6 +1,10 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { NoteContext } from '../context/NoteContext';
 
-const FilterField = ({setFilterState,dispatch}) => {
+const FilterField = () => {
+
+  const {dispatch}=useContext(NoteContext);
+  const {setFilterState}=useContext(NoteContext);
 
   const editFilter=(statu)=>{
 
