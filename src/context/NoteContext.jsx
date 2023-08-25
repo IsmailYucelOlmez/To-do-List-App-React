@@ -84,6 +84,25 @@ export const NoteContextProvider=({children})=>{
     const firstPostIndex=lastPostIndex-notesPerPage;
     const currentNotes= filteredNotes.slice(firstPostIndex,lastPostIndex);
      
+    useEffect(()=>{
+
+        showNotes();
+        
+       },[])
+    
+       useEffect(()=>{
+    
+         localStorage.setItem('notes',JSON.stringify(notes));
+    
+       },[notes]);
+    
+       const showNotes=()=>{
+    
+        const noteData=JSON.parse(localStorage.getItem('notes'));
+        
+        dispatch({type:"SHOW_NOTES",notes:noteData})
+    
+       }
 
 
 
